@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # #########################################
+  # api
+  api:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: build/api/Dockerfile
+    environment:
+      PORT: "50051"
+      MYSQL_MASTER_ADDR: mysql:3306
+      MYSQL_SHARD_ADDR: mysql:3306
+    ports:
+      - "50051:50051"
+    restart: always
+  
+  # #########################################
+  # DB
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0.29
+    environment:
+      TZ: 'Asia/Tokyo'
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - .docker-compose/mysql/init.d:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    restart: always

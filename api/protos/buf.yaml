@@ -1,0 +1,13 @@
+# See https://buf.build/docs/lint/overview
+version: v1
+deps:
+  # See https://buf.build/envoyproxy/protoc-gen-validate/docs/main
+  - buf.build/envoyproxy/protoc-gen-validate:6607b10f00ed4a3d98f906807131c44a
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - BASIC
+  except:
+    - PACKAGE_SAME_GO_PACKAGE

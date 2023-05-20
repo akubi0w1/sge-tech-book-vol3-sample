@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package model;
+
+import "enums/platform.proto";
+
+option go_package = "github.com/akubi0w1/sge-tech-book-vol3-sample/pkg/pb/model";
+
+// User
+message User {
+  string id = 1;
+  string name = 2;
+  enums.Platform platform = 3;
+  int64 created_at = 4;
+  int64 updated_at = 5;
+}

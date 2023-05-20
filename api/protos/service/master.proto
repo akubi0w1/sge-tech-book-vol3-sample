@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package service;
+
+import "master/card.proto";
+import "master/character.proto";
+
+option go_package = "github.com/akubi0w1/sge-tech-book-vol3-sample/pkg/pb/service";
+
+// MasterService
+service MasterService {
+  rpc GetAll(Empty) returns (GetAllResponse) {}
+  rpc GetCard(Empty) returns (GetCardResponse) {}
+  rpc GetCharacter(Empty) returns (GetCharacterResponse) {}
+}
+
+message Empty {}
+
+message GetAllResponse {
+  repeated master.Card cards = 1;
+  repeated master.Character characters = 2;
+}
+
+message GetCharacterResponse {
+  repeated master.Character characters = 1;
+}
+
+message GetCardResponse {
+  repeated master.Card cards = 1;
+}

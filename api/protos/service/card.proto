@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package service;
+
+import "validate/validate.proto";
+import "model/card.proto";
+
+option go_package = "github.com/akubi0w1/sge-tech-book-vol3-sample/pkg/pb/service";
+
+// CardService
+service CardService {
+  // DrawCard
+  rpc DrawCard(DrawCardRequest) returns (DrawCardResponse) {}
+  // ListCard
+  rpc ListCard(ListCardRequest) returns (ListCardResponse) {}
+}
+
+message DrawCardRequest {
+  string user_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message DrawCardResponse {
+  model.Card card = 1;
+}
+
+message ListCardRequest {
+  string user_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message ListCardResponse {
+  repeated model.Card cards = 1;
+}

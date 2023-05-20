@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package service;
+
+import "enums/platform.proto";
+import "model/user.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/akubi0w1/sge-tech-book-vol3-sample/pkg/pb/service";
+
+// UserService
+service UserService {
+  // ListUser
+  rpc ListUser(ListUserRequest) returns (ListUserResponse) {}
+  // GetUser
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+  // CreateUser
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  // UpdateUser
+  rpc UpdateUserName(UpdateUserNameRequest) returns (UpdateUserNameResponse) {}
+}
+
+message ListUserRequest {}
+
+message ListUserResponse {
+  repeated model.User users = 1;
+}
+
+message GetUserRequest {
+  string user_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message GetUserResponse {
+  model.User user = 1;
+}
+
+message CreateUserRequest {
+  string name = 1 [(validate.rules).string = {min_len: 1, max_len: 20}];
+  enums.Platform platform = 2 [(validate.rules).enum.defined_only = true];
+}
+
+message CreateUserResponse {
+  model.User user = 1;
+}
+
+message UpdateUserNameRequest {
+  string user_id = 1[(validate.rules).string.uuid = true];
+  string name = 2 [(validate.rules).string = {min_len: 1, max_len: 20}];
+}
+
+message UpdateUserNameResponse {
+  model.User user = 1;
+}

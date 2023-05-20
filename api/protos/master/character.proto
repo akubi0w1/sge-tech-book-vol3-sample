@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package master;
+
+import "enums/gender.proto";
+
+option go_package = "github.com/akubi0w1/sge-tech-book-vol3-sample/pkg/pb/master";
+
+// Character
+message Character {
+  uint32 id = 1;
+  string name = 2;
+  enums.Gender gender = 3;
+  int32 age = 4;
+}
